@@ -2,7 +2,7 @@
       subroutine mobi_init
 
 #if defined O_mom && defined O_npzd 
-!     initialize MOBI parameters (make small change)  juan
+!     initialize MOBI parameters (make small change)  juan   
       implicit none
 #include "size.h"
 #include "npzd.h"
