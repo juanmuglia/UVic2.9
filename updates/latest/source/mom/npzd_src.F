@@ -2,7 +2,7 @@
       subroutine mobi_init
 
 #if defined O_mom && defined O_npzd 
-!     initialize MOBI parameters
+!     initialize MOBI parameters (make small change)  juan
       implicit none
 #include "size.h"
 #include "npzd.h"
@@ -317,7 +317,7 @@ c     juan: Levin's value was 0.1e-3
 #  endif
 # endif
 # if defined O_npzd_iron
-#ifndef O_TMM
+#  ifndef O_TMM
 ! read the hydrothermal Fe input from O_fe_hydr.nc
       fe_hydr(:,:,:) = 0.
       ib(:) = 1
@@ -347,7 +347,7 @@ c     juan: Levin's value was 0.1e-3
       else
          print*,"Warning => Cannot find", trim(fname)
       endif
-#endif ! not O_TMM
+#  endif ! not O_TMM
 # endif
 # if defined O_carbon || defined O_npzd_alk
 
@@ -501,7 +501,7 @@ c     juan: Levin's value was 0.1e-3
 # endif
       real calpro
 # if defined O_npzd_caco3
-      real biococc,jmax_C,u_C,avej_C,gd_C,npp_C, morp_C,morpt_C
+      real biococc,jmax_C,u_C,gd_C,npp_C, morp_C,morpt_C
       real nuct, g_C, graz_C, ing_C, felimit_C, gl_C, npp_C_dop
       real dissl, caco3in, sil_in, atmpres1, pHlo1, pHhi1, pH1, p_in
       real co2star1, dco2star1, pCO21, dpco21, CO31, omegaca, omegaar
@@ -514,9 +514,9 @@ c     juan: Levin's value was 0.1e-3
       real pH, co2star, dco2star, pCO2, dpco2, CO3
       real Omega_c, Omega_a, pCO2_old, pCO2_new
       real atmpres, depth
-# if defined O_npzd_caco3
+#  if defined O_npzd_caco3
       real rcaco3c13impo, rcaco3c13expo, rtcaco3c13(km)
-# endif
+#  endif
 # endif
       real sgb_in(km)
 # if defined O_npzd_nitrogen
@@ -1076,9 +1076,8 @@ c         if (zt(k) .le. 200000.) sg_bdeni = sgbdfac*sg_bdeni
 # endif
 # if defined O_sed
       sedcorgflx = sedrr*redctn*twodt
-#   if defined O_npzd_caco3
+#  if defined O_npzd_caco3
       sedcalflx = expocaco3*1.e-3*twodt
-#   endif
 #  endif
 # endif
 
@@ -1318,7 +1317,8 @@ c         if (zt(k) .le. 200000.) sg_bdeni = sgbdfac*sg_bdeni
 !     Nickelsen et al. 2015, Geosc. Model Dev. 8, 1357-1381, doi:10.5194/gmd-8-1357-2015
 !
 !     Juan Muglia has modified the subgrid-scale scheme used for benthic denitrification
-!     and iron release from sediments. He has also included geothermal sources of iron.
+!     and iron release from sediments. He has also included geothermal sources of iron:
+!     Muglia et al. 2017, doi:10.1002/2016PA003077.
 !
 !     Note that nutrient (N) represents phosphate
 !
@@ -2557,7 +2557,11 @@ c     Andreas put dissl in bracket
 #   if defined O_npzd_caco3
      &       + rtcoccc13*(1.-dfr)*morp_C + rtcoccc13*sf_C
 #   endif        
+<<<<<<< HEAD
      &       + rtphytc13*sf_P + rtzoopc13*sf_Z + rtdetrc13*sf_Det
+=======
+     &       + rtphytc13*sf_P + rtzoopc13*sf_Z + rtdetrc13*sf_Det 
+>>>>>>> 68f314ef6280a41338931d98fe1fc9e92fd060dd
      &       + rtdiazc13*sf_D
      &       + rtzoopc13*morz - rtdetrc13*remi 
      &       - rtdetrc13*graz_Det - rtdetrc13*expo + rc13impo 
